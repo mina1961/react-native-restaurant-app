@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
+import RootNavigator from './navigation/RootNavigator';
 
 export default function App() {
   return (
@@ -8,7 +9,7 @@ export default function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         
-          <Text>welcome to React Navigation!</Text>
+         <RootNavigator />
         
       </NavigationContainer>
     </>
