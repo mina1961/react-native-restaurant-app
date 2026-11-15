@@ -2,14 +2,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
-export default function HomeNavigator() {
+export default function HomeNavigator({ navigation }) {
     const Stack = createStackNavigator();
     return (
         <Stack.Navigator
             screenOptions={{
                 headerRight: () => (
-                    <Pressable onPress={() => alert('Cart pressed')}>
-                        <Ionicons name="cart" size={24} color="black" style={{ marginRight: 20 }} />
+                    <Pressable onPress={() => navigation.navigate('CartTab')}>
+                        <Ionicons name="cart" size={24} color="blue" style={{ marginRight: 20 }} />
                     </Pressable>
                 ),
             }}
