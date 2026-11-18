@@ -14,7 +14,7 @@ export default function RootNavigator() {
                     title: 'Home1',
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="home" color={color} size={size} />
+                        <Ionicons name="menu" color={color} size={size} />
                     )
                 }}
             />

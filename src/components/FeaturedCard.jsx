@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
-        marginLeft: 12,
+        margin: 12,
         width: 200,
     },
     containerHorizontal: {

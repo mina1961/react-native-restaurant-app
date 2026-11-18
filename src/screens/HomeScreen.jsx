@@ -1,10 +1,13 @@
 
-import { Text, View, StyleSheet, FlatList } from 'react-native';
-import { featuredItems } from '../data/Data';
+import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { featuredItems, categories } from '../data/Data';
 import FeaturedCard from '../components/FeaturedCard';
+import CategoryCard from '../components/CategoryCard';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
     return (
+        <ScrollView style={styles.container}>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.restaurantName}>Tasty Bites</Text>
@@ -27,7 +30,14 @@ export default function HomeScreen() {
                     contentContainerStyle={styles.featuredList}
                 />
             </View>
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Categories</Text>
+                {categories.map((category) => (
+                    <CategoryCard key={category.id} title={category.title} />
+                ))}
+            </View>
         </View>
+        </ScrollView>
     );
 }
 const styles = StyleSheet.create({
