@@ -1,14 +1,13 @@
 
-import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Image, ScrollView, Pressable } from 'react-native';
 import { featuredItems, categories } from '../data/Data';
 import FeaturedCard from '../components/FeaturedCard';
 import CategoryCard from '../components/CategoryCard';
-import { Link } from 'expo-router';
+import { Link } from '@react-navigation/native';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
     return (
         <ScrollView style={styles.container}>
-        <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.restaurantName}>Tasty Bites</Text>
                 <View>
@@ -20,23 +19,31 @@ export default function HomeScreen() {
                     <Text style={styles.tagline}>Fresh & Delicious Food Delivered Fast</Text>
                 </View>
             </View>
+
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Featured Items</Text>
                 <FlatList
                     data={featuredItems}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <FeaturedCard {...item} />}
+                    renderItem={({ item }) => (< FeaturedCard {...item} />)}
                     horizontal
                     contentContainerStyle={styles.featuredList}
                 />
             </View>
+
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Categories</Text>
                 {categories.map((category) => (
-                    <CategoryCard key={category.id} title={category.title} />
+                    <Link
+                        key={category.id}
+                        screen="Category"
+                        params={{ categoryId: category.id, categoryName: category.title }}
+                        style={{ marginBottom: 12 }}
+                    >
+                        <CategoryCard title={category.title} />
+                    </Link>
                 ))}
             </View>
-        </View>
         </ScrollView>
     );
 }
@@ -95,5 +102,14 @@ const styles = StyleSheet.create({
     },
     bottomPadding: {
         height: 24,
+    },
+    featuredImage: {
+        width: 150,
+        height: 150,
+        borderRadius: 12,
+        marginBottom: 8,
+    },
+    categoryCard: {
+        marginBottom: 12,
     },
 });

@@ -5,7 +5,7 @@ export default function FeaturedCard({
     imageUrl,
     name,
     description,
-    price,
+    price
 }) {
     return (
         <View style={styles.container}>
