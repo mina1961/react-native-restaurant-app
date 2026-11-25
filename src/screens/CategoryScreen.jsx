@@ -30,7 +30,7 @@ export default function CategoryScreen({
                     key={item.id}
                     {...item}
                     // imageUrl={item.imageUrl}
-                    onPress={() => navigation.navigate('Details', { item })}
+                    onPress={() => navigation.navigate('Details', { mealId: item.id })}
                 />
             ))}
         </ScrollView>
