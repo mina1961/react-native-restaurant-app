@@ -63,8 +63,8 @@ export default function DetailsScreen({
                         <Text style={styles.qtyLabel}>Quantity</Text>
                         <QuantityStepper
                             qty={qty}
-                            onIncrement={() => setQty(qty + 1)}
-                            onDecrement={() => qty > 1 && setQty(qty - 1)}
+                            onIncrement={() => setQty(qty => qty + 1)}
+                            onDecrement={() => setQty(qty => qty > 1 ? qty - 1 : qty)}
                         />
                     </View>
                 </View>
