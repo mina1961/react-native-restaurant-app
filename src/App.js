@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { Text, StyleSheet } from 'react-native';
-import RootNavigator from './navigation/RootNavigator';
+import RootNavigator from './navigation/TabsNavigator';
 
 export default function App() {
   return (

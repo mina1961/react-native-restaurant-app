@@ -1,46 +1,16 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CartNavigator from './CartNavigator';
-import InfoScreen from '../screens/InfoScreen';
-import HomeNavigator from './HomeNavigator';
-import { Ionicons } from '@expo/vector-icons';
-export default function RootNavigator() {
-    const Tabs = createBottomTabNavigator();
-    return (
-        <Tabs.Navigator>
-            <Tabs.Screen
-                name="HomeTab"
-                component={HomeNavigator}
-                options={{
-                    title: 'Home1',
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="restaurant" color={color} size={size} />
-                    )
-                }}
-            />
+import { createStackNavigator } from '@react-navigation/stack';
+import TabsNavigator from './TabsNavigator';
+import DetailsScreen from '../screens/DetailsScreen';
+import CartScreen from '../screens/CartScreen';
 
-            <Tabs.Screen
-                name="CartTab"
-                component={CartNavigator}
-                options={{
-                    title: 'Cart',
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="cart" color={color} size={size} />
-                    )
-                }}
-            />
-            
-            <Tabs.Screen
-                name="Info"
-                component={InfoScreen}
-                options={{
-                    title: 'Info',
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="information-circle" color={color} size={size} />
-                    )
-                }}
-            />
-        </Tabs.Navigator>
+export default function RootNavigator() {
+    const Stack = createStackNavigator();
+    
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="MainStack" component={TabsNavigator} options={{headerShown: false}} />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen name="CartMain" component={CartScreen} options={{title: 'Cart'}} />
+        </Stack.Navigator>
     );
 }

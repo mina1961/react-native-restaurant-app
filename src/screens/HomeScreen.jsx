@@ -1,13 +1,39 @@
 
-import { Text, View, StyleSheet, FlatList, Image, ScrollView, Pressable } from 'react-native';
-import { featuredItems, categories } from '../data/Data';
+import { Text, View, StyleSheet, FlatList, Image, ScrollView, Pressable, Alert, RefreshControl } from 'react-native';
+import { featuredItems } from '../data/Data';
 import FeaturedCard from '../components/FeaturedCard';
 import CategoryCard from '../components/CategoryCard';
 import { Link } from '@react-navigation/native';
+import { categoryApi } from '../api';
+import { useEffect, useState } from 'react';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+    const [categories, setCategories] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+
+    useEffect(() => {
+        categoryApi.getAll()
+            .then(setCategories)
+            .catch((error) => Alert.alert('Error', error.message));
+    }, []);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        try {
+            const data = await categoryApi.getAll();
+            setCategories(data);
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        } finally {
+            setRefreshing(false);
+        }
+    };
+
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+        style={styles.container}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh}/>}
+        >
             <View style={styles.header}>
                 <Text style={styles.restaurantName}>Tasty Bites</Text>
                 <View>
@@ -25,7 +51,12 @@ export default function HomeScreen({ navigation }) {
                 <FlatList
                     data={featuredItems}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (< FeaturedCard {...item} />)}
+                    renderItem={({ item }) => (
+                        <Link screen="Details" params={{ item }} style={{ marginRight: 12 }}>
+                            <FeaturedCard {...item} />
+                        </Link>
+
+                    )}
                     horizontal
                     contentContainerStyle={styles.featuredList}
                 />
