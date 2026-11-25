@@ -1,26 +1,31 @@
 
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import CategoryItemCard from '../components/CategoryItemCard';
-import { getCategoryItems } from '../data/Data';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { mealApi } from '../api';
+
 
 export default function CategoryScreen({
     route,
     navigation,
 }) {
-    // navigation.setOptions({
-    //     title: route.params.categoryName,
-    // });
-    useEffect(() => {
+
     navigation.setOptions({
         title: route.params.categoryName,
+
     });
-}, [navigation, route.params.categoryName]);
     const categiryId = route.params.categoryId;
-    const categoryItems = getCategoryItems(categiryId);
+    const [meals, setMeals] = useState([]);
+
+    useEffect(() => {
+        mealApi.getByCategoryId(categiryId)
+        .then(result => setMeals(result))
+        .catch(error => Alert.alert('Error', error.message));
+    }, [categiryId]);
+
     return (
         <ScrollView style={styles.container}>
-            {categoryItems.map(item => (
+            {meals.map(item => (
                 <CategoryItemCard
                     key={item.id}
                     {...item}
